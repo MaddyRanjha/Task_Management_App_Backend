@@ -20,12 +20,34 @@ router.post('/', async (req, res) => {
     if (!validPassword)
       return res.status(401).send({ message: 'Invalid Email or Password' });
 
+
     const token = user.generateAuthToken();
     res
       .status(200)
       .send({
-        data: [user.firstName, token],
+        data: {"userId": user.id, "token": token},
         message: 'logged in successfully',
+      });
+  } catch (error) {
+    res.status(500).send({ message: 'Internal Server Error' });
+  }
+});
+
+
+router.get('/:id', async (req, res) => {
+  try {
+    
+    const user = await User.findById(req.params.id);
+    console.log(user);
+    if (!user)
+      return res.status(401).send({ message: 'User not Exists' });
+
+
+    res
+      .status(200)
+      .send({
+        data: user,
+        message: 'User details fetched Successfully',
       });
   } catch (error) {
     res.status(500).send({ message: 'Internal Server Error' });
