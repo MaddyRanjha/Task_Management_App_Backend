@@ -7,7 +7,7 @@ const { date, boolean } = require('joi');
 const taskSchema = new mongoose.Schema({
   name: { type: String, required: true },
   desc: { type: String, required: true },
-  date: { type: Date, required: true },
+  date: { type: String, required: true },
   noti: { type: Boolean, required: true},
   notification: { type: String, required: true },
   frequency: { type: String, required: true },
